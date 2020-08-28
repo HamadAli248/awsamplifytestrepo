@@ -1,0 +1,22 @@
+FROM node:alpine as build
+ENV APP_NAME=Test-Repo
+ENV APP_HOME=/app
+ENV HTTPS=true
+ENV PORT=8443
+
+RUN mkdir ${APP_HOME}
+WORKDIR ${APP_HOME}
+
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install
+RUN npm install react-scripts@3.4.1 -g 
+
+COPY . ./
+
+RUN npm run build
+
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 8443
+CMD ["nginx", "-g", "daemon off;"]
