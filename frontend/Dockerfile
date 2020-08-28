@@ -1,5 +1,5 @@
-FROM node:alpine
-ENV APP_NAME=my_test_application
+FROM node:alpine as build
+ENV APP_NAME=Test-Repo
 ENV APP_HOME=/app
 ENV HTTPS=true
 ENV PORT=8443
@@ -7,18 +7,16 @@ ENV PORT=8443
 RUN mkdir ${APP_HOME}
 WORKDIR ${APP_HOME}
 
-COPY package*.json ./
-
+COPY package.json ./
+COPY package-lock.json ./
 RUN npm install
+RUN npm install react-scripts@3.4.1 -g 
 
-COPY src/ ./src/
-COPY public/ ./public/
-COPY webpack.server.js ./
+COPY . ./
 
 RUN npm run build
 
-COPY entrypoint.sh ./
-RUN chmod +x ./entrypoint.sh
-
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 8443
-ENTRYPOINT ["./entrypoint.sh"]
+CMD ["nginx", "-g", "daemon off;"]

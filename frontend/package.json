@@ -18,10 +18,11 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "start": "node src/server/index.js",
+    "start-client": "reac-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start":"npm run build && (cd server && npm start)"
   },
   "eslintConfig": {
     "extends": "react-app"
