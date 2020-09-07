@@ -4,6 +4,9 @@
   "type": "module",
   "private": true,
   "dependencies": {
+    "@okta/okta-auth-js": "^4.0.0",
+    "@okta/okta-react": "^3.0.6",
+    "@okta/okta-signin-widget": "^4.3.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -18,11 +21,12 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "start-client": "reac-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "start":"npm run build && (cd server && npm start)"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
