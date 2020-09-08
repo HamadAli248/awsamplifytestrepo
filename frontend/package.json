@@ -18,11 +18,12 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "start-client": "reac-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "start":"npm run build && (cd server && npm start)"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
